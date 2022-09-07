@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %} Image Search {% endblock %}
+{% block content %}
+
+<h2>NASA Image Library</h2>
+
+<form method="POST">
+    <div class="col-md-6">
+    <!-- <input class="form-control" type="text" name="search"
+        placeholder="Search Nasa pictures - for ex.. &quot;Cat's Eye Nebula&quot;"> -->
+  {{ form.hidden_tag() }}
+
+  {% for field in form
+    if field.widget.input_type != 'hidden' %}
+  <p>
+    {{ field(class_="form-control",
+        placeholder="SEARCH here   --    something like.. 'Nebula'") }}
+
+    {% for error in field.errors %}
+    <span class="form-text text-danger">{{ error }}</span>
+    {% endfor %}
+  </p>
+  {% endfor %}
+  <span><button class="btn btn-success" type="submit">Search</button></span>
+</div>
+</form> 
+
+{% if result %}
+{% for item in result %}
+    
+<form action=""></form>
+<div class="mt-4">
+        <a href="">
+            <img src="{{ item['thumbnail']}}" alt="{{ item['title']}}">
+        </a>
+    </div>
+{% endfor %}
+
+<p>
+    <a  href="#top" class="btn btn-outline-info">Back to Top</a>
+</p>
+
+{% endif %}
+{% endblock %}

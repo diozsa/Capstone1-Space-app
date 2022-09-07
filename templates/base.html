@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>
+        Space Exploration &ndash; {% block title %}{% endblock %}
+    </title>
+
+  <!-- <link rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.css"> -->
+  <link rel="stylesheet" href="https://bootswatch.com/4/flatly/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Michroma&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+
+</head>
+
+<body>
+  <a name="top"></a>
+
+  <nav class="navbar navbar-light bg-primary justify-content-between">
+  <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark"> -->
+    <div class="container">
+      <a href="/apod" class="navbar-brand text-light">Space Exploration</a>
+      
+      <ul class="nav navbar-nav flex-row float-right ">
+<!-- Astronomy picture of the day -->
+
+        <li class="nav-item">
+          <a class="nav-link pr-4 text-light" href="/images">NASA Images</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link pr-4 text-light" href="/apod">APOD</a>
+        </li>
+
+        {% if session['username'] %}
+        <li class="nav-item">
+          <a class="nav-link pr-5 text-light" href="/logout">Logout</a>
+        </li>
+<!-- Showing logged in username -->
+        <li class="nav-item">
+          <b><a class="nav-link pr-4 text-light" href="/">~ {{ session['username'] }} ~</a></b>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link pr-4 text-light" href="/login">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link pr-5 text-light" href="/register">SignUp</a>
+        </li>
+<!-- if not logged in, showing Guest user -->
+        <li class="nav-item">
+          <b><a class="nav-link text-light" href="/">~ Guest ~</a></b>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container" style="margin-top: 2em">
+    {% for category, msg in get_flashed_messages(with_categories=True) %}
+    <div class="alert alert-{{category}}">{{ msg }}</div>
+    {% endfor %}
+
+    {% block content %}
+    {% endblock %}
+  </div>
+
+</body>
+
+</html>

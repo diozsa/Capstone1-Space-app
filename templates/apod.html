@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %} APOD {% endblock %}
+{% block content %}
+
+<h2>Astronomy Picture Of the Day</h2>
+
+{% if data['media_type'] == 'image' %}
+    <img src="{{ data['url'] }}" alt="{{ data['title'] }}">
+{% endif %}
+
+{% if data['media_type'] == 'video' %}
+<video controls>
+    <source src="{{ data['url'] }}" type="video/mp4">
+</video>
+{% endif %}
+
+    <span>
+        <p>
+        <b>{{ data['title'] }}</b>
+        <br>
+        {{ data['explanation'] }}
+        <br>
+        {% if data['copyright'] %}
+            Copyright: {{ data['copyright'] }}  
+        {% endif %}      
+        </p>
+    </span>
+
+<a href="/" class="btn btn-outline-info">Home Page</a>
+
+{% endblock %}
