@@ -57,7 +57,8 @@ class User(db.Model):
         description = db.Column(db.Text)
         photographer = db.Column(db.Text)
         creator = db.Column(db.Text)
-        
+        thumbnail = db.Column(db.Text)
+        full_size = db.Column(db.Text)
         user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
         
 

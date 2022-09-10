@@ -14,7 +14,7 @@
     if field.widget.input_type != 'hidden' %}
   <p>
     {{ field(class_="form-control",
-        placeholder="SEARCH here   --    something like.. 'Nebula'") }}
+        placeholder="SEARCH here   --    something like.. 'Sombrero'") }}
 
     {% for error in field.errors %}
     <span class="form-text text-danger">{{ error }}</span>
@@ -26,19 +26,24 @@
 </form> 
 
 {% if result %}
-{% for item in result %}
-    
-<form action=""></form>
-<div class="mt-4">
-        <a href="">
-            <img src="{{ item['thumbnail']}}" alt="{{ item['title']}}">
-        </a>
-    </div>
-{% endfor %}
-
-<p>
-    <a  href="#top" class="btn btn-outline-info">Back to Top</a>
-</p>
+    {% for item in result %}
+        <form action="/show_image" method="POST">
+            <div>
+                <button type="submit">
+                    <img src="{{ item['thumbnail']}}" alt="{{ item['title']}}">
+                </button>
+            </div>
+   
+            <!-- hidden fields with image data -->
+            {% for (key, value) in item.items() %}
+                <input type="hidden" name="{{ key }}" value="{{ value }}" >
+            {% endfor %}
+        </form>
+    {% endfor %}
+   
+    <p>
+        <a  href="#top" class="btn btn-outline-info">Back to Top</a>
+    </p>
 
 {% endif %}
 {% endblock %}
