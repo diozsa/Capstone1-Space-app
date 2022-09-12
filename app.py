@@ -4,7 +4,7 @@ from unittest import result
 from flask import Flask, render_template, redirect, session, flash, request
 from flask_debugtoolbar import DebugToolbarExtension
 from models import connect_db, db, User, Image
-from forms import UserForm, DeleteForm, SearchForm
+from forms import UserForm, SearchForm
 from sqlalchemy.exc import IntegrityError
 from werkzeug.exceptions import Unauthorized
 import requests
@@ -14,7 +14,7 @@ app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql:///space"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_ECHO'] = False
+app.config['SQLALCHEMY_ECHO'] = True
 app.config['SECRET_KEY'] = FLASK_KEY
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
@@ -23,11 +23,12 @@ toolbar = DebugToolbarExtension(app)
 connect_db(app)
 
 API_BASE_URL = "https://images-api.nasa.gov"
+RV_API_BASE = "https://api.nasa.gov/mars-photos/api/v1"
 
 
 
 def collect_API_data(results):
-    """Package data from API"""
+    """Packages data from NASA pictures API"""
 
     result = []
     for item in results:
@@ -47,6 +48,22 @@ def collect_API_data(results):
                         'thumbnail': thumbnail})
 
     return result
+
+
+def calc_rand_sol():
+    """Retrieves maximum days of Perseverance on Mars
+    and generates a random number within that range
+    """
+
+    import random
+
+    max_sol_resp =  requests.get(f"{RV_API_BASE}/manifests/perseverance", 
+                    params={'api_key': API_KEY})
+
+    max_sol_data = max_sol_resp.json()
+    max_sol = max_sol_data['photo_manifest']['max_sol']
+    random_sol = random.randrange(1,int(max_sol))
+    return random_sol
     
 
 
@@ -113,17 +130,16 @@ def login_user():
     return render_template('login.html', form=form)
 
 
+
 @app.route('/logout')
 def logout_user():
     """Log out route"""
 
     session.pop('username')
-    # do_logout()
     flash("You have logged out!", "info")
     return redirect('/images')
 
-# check incoming data by base URL in order to know 
-# what fields are coming
+
 
 @app.route('/apod')
 def apod():
@@ -132,14 +148,15 @@ def apod():
     res = requests.get("https://api.nasa.gov/planetary/apod", 
                         params={'api_key': API_KEY})
     data = res.json()
+
     return render_template('apod.html', data=data)
+
 
 
 @app.route('/images', methods=['GET', 'POST'])
 def show_images():
     """Shows images requested from the API"""
 
-    
     form = SearchForm()
     
     if form.validate_on_submit():
@@ -165,27 +182,17 @@ def show_image():
     """Displays full size image with details"""
 
     result = {}
-    # nasa_id = request.form.get('nasa_id')
-    # title = request.form.get('title')
-    # description = request.form.get('description')
-    # photographer = request.form.get('photographer')
-    # creator = request.form.get('creator')
-    # thumbnail = request.form.get('thumbnail')
-
-    # # retrieving full size image from "asset" endpoint
-    # image_url = requests.get(f"{API_BASE_URL}/asset/{nasa_id}")
-    # image_url = image_url.json() 
-
-    # result.update({ 'nasa_id': nasa_id,
-    #                 'title': title,
-    #                 'description': description,
-    #                 'photographer': photographer,
-    #                 'creator': creator,
-    #                 'thumbnail': thumbnail,
-    #                 'full_image': image_url['collection']['items'][0]['href']})
+    
+    if 'username' in session:
+        user = User.query.filter(User.username == session['username']).first()
+        username = user.username
+        result.update({'username': username})
+    else:
+        result.update({'username': 'guest'})
+    
     nasa_id = request.form.get('nasa_id')
 
-    # retrieving full size image from "asset" endpoint
+    # retrieving full size image from API's "asset" endpoint
     image_url = requests.get(f"{API_BASE_URL}/asset/{nasa_id}")
     image_url = image_url.json() 
 
@@ -197,30 +204,22 @@ def show_image():
                     'thumbnail': request.form.get('thumbnail'),
                     'full_size': image_url['collection']['items'][0]['href']})
     
-    
     return render_template('show_img.html', result=result)
 
 
 
-@app.route('/user/saved_images', methods=['POST'])
-def save_image():
-    """Saves image to DB"""
+@app.route('/user/<username>/saved_images', methods=['POST'])
+def save_image(username):
+    """Saves image to DB, if logged in"""
 
-    if "username" not in session:
+    if "username" not in session or username != session['username']:
         flash("Please login first!", "danger")
         return redirect('/login')
-
     user = User.query.filter(User.username == session['username']).first()
+    if user == None:
+        raise Unauthorized()
 
-    # user_id = user.id
-    # nasa_id = request.form.get('nasa_id')
-    # title = request.form.get('title')
-    # description = request.form.get('description')
-    # photographer = request.form.get('photographer')
-    # creator = request.form.get('creator')
-    # thumbnail = request.form.get('thumbnail')
-
-    image = Image(  img_id = request.form.get('nasa_id'),
+    image = Image(  nasa_id = request.form.get('nasa_id'),
                     title = request.form.get('title'),
                     description = request.form.get('description'),
                     photographer = request.form.get('photographer'),
@@ -232,20 +231,60 @@ def save_image():
     
     db.session.add(image)
     db.session.commit()
-    flash('Image added to your collection!', 'success')
+    flash('Image added to your collection!', 'primary')
     return redirect('/images')
+
 
 
 @app.route('/user/saved_images')
 def show_saved_images():
-    """Displays all saved images"""
+    """Displays all saved images""" 
 
     if "username" not in session:
+        flash("Log in to get access!", "danger")
+        return redirect('/login')
+    user = User.query.filter(User.username == session['username']).first()
+    if user == None:
+        raise Unauthorized()
+    
+    return render_template('saved_images.html', user=user)
+
+
+
+@app.route('/users/<username>/saved_images/<int:id>/delete', methods=['POST'])
+def delete_image(username, id):
+    """Deletes an image"""
+
+    if 'username' not in session:
         flash("Please login first!", "danger")
         return redirect('/login')
+    if username != session['username']:
+        raise Unauthorized()
+    image = Image.query.get_or_404(id)
+    db.session.delete(image)
+    db.session.commit()
+    flash("Image deleted!", "info")
+    return redirect('/user/saved_images')
 
-    user = User.query.filter(User.username == session['username']).first()
 
-    user = User.query.get(username)
-    form = DeleteForm()
-    return render_template('saved_images')
+
+
+@app.route('/rover')
+def rover_image():
+    """Handles random image from Perseverance rover"""
+
+    random_sol = calc_rand_sol()   
+
+    img_resp = requests.get(f"{RV_API_BASE}/rovers/perseverance/photos", 
+                        params={'api_key': API_KEY, 'sol': {random_sol}})
+       
+    data = img_resp.json()
+    images = data['photos']
+    total_hits = len(images)
+    if total_hits == 0:
+        flash("No images could be retrieved, please try again", "info")
+        return redirect ('/images')
+    
+    return render_template('rover.html', images=images)
+
+

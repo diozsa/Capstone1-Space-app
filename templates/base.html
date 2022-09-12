@@ -20,9 +20,9 @@
 <body>
   <a name="top"></a>
 
-  <nav class="navbar navbar-light bg-primary justify-content-between">
-  <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark"> -->
-    <div class="container">
+  <!-- <nav class="navbar navbar-light bg-primary justify-content-between"> -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container">
       <a href="/apod" class="navbar-brand text-light">Space Exploration</a>
       
       <ul class="nav navbar-nav flex-row float-right ">
@@ -34,11 +34,18 @@
         <li class="nav-item">
           <a class="nav-link pr-4 text-light" href="/apod">APOD</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link pr-4 text-light" href="/rover">Perseverance Rover</a>
+        </li>
 
         {% if session['username'] %}
         <li class="nav-item">
+          <a class="nav-link pr-5 text-light" href="/user/saved_images">Your Image Collection</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link pr-5 text-light" href="/logout">Logout</a>
         </li>
+
 <!-- Showing logged in username -->
         <li class="nav-item">
           <b><a class="nav-link pr-4 text-light" href="/">~ {{ session['username'] }} ~</a></b>

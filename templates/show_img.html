@@ -1,19 +1,20 @@
 {% extends 'base.html' %}
-{% block title %} Image description {% endblock %}
+{% block title %} Image details {% endblock %}
 {% block content %}
 
-    <form action="/user/saved_images" method="GET">
-        <p>
+    <form action="/user/{{ result.username }}/saved_images" method="POST">
+        <p></p>
             <a target="_blank" href="{{ result['full_size']}}" title="Click for full size image">
             <img src="{{ result['thumbnail']}}" alt="{{ result['title']}}">    </a>
-            <p><b>{{ result['title'] }}</b><p>
-            {{ result['description'] }}
+            <p><b>{{ result.title }}</b><p>
+            {{ result.description }}
             <br>
-            {% if result['photographer'] != "None" %}
+            <!-- Left both formats to show they both work -->
+            {% if result.photographer != "None" %}
                 <b>Photographer:</b> {{ result['photographer'] }}  
             {% endif %}
             <br>
-            {% if result['creator'] != "None" %}
+            {% if result.creator != "None" %}
                 <b>Creator:</b> {{ result['creator'] }}  
             {% endif %}       
             

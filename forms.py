@@ -8,8 +8,8 @@ class UserForm(FlaskForm):
     username = StringField("Username", validators=[InputRequired()])
     password = PasswordField("Password", validators=[InputRequired()])
 
-class DeleteForm(FlaskForm):
-    """Delete form. This form is blank."""
+# class DeleteForm(FlaskForm):
+#     """Delete form. This form is blank."""
 
 class SearchForm(FlaskForm):
     """Search form for image search"""

@@ -10,6 +10,7 @@ def connect_db(app):
     db.app = app
     db.init_app(app)
 
+
 class User(db.Model):
     """User model"""
 
@@ -19,7 +20,7 @@ class User(db.Model):
     username = db.Column(db.Text, nullable=False, unique=True)
     password = db.Column(db.Text, nullable=False)
 
-    image = db.relationship("Image", backref="user", cascade="all, delete")
+    images = db.relationship("Image", backref="user", cascade="all, delete")
 
 
     @classmethod
@@ -47,19 +48,21 @@ class User(db.Model):
             return False
 
     
-    class Image(db.Model):
-        """Image model"""
+class Image(db.Model):
+    """Image model"""
 
-        __tablename__ = "images"
+    __tablename__ = "images"
 
-        img_id = db.Column(db.Text, primary_key=True)
-        title = db.Column(db.Text)
-        description = db.Column(db.Text)
-        photographer = db.Column(db.Text)
-        creator = db.Column(db.Text)
-        thumbnail = db.Column(db.Text)
-        full_size = db.Column(db.Text)
-        user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-        
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    # id = db.Column(db.String(100), primary_key=True, nullable=False, unique=True)
+    nasa_id = db.Column(db.Text)
+    title = db.Column(db.Text)
+    description = db.Column(db.Text)
+    photographer = db.Column(db.Text)
+    creator = db.Column(db.Text)
+    thumbnail = db.Column(db.Text)
+    full_size = db.Column(db.Text)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    
 
 

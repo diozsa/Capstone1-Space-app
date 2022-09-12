@@ -9,16 +9,15 @@
 {% endif %}
 
 {% if data['media_type'] == 'video' %}
-<video controls>
-    <source src="{{ data['url'] }}" type="video/mp4">
-</video>
+
+<iframe width="560" height="315" src="{{ data['url'] }}" frameborder="0" allowfullscreen></iframe>
 {% endif %}
 
     <span>
         <p>
-        <b>{{ data['title'] }}</b>
+        <b>{{ data.title }}</b>
         <br>
-        {{ data['explanation'] }}
+        {{ data.explanation }}
         <br>
         {% if data['copyright'] %}
             Copyright: {{ data['copyright'] }}  
