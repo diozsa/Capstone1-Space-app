@@ -3,7 +3,6 @@
 {% block content %}
 
     {% for image in images %}
-       
         <div>
             <a target="_blank" href="{{ image.img_src}}" title="Click for full size image">
                 <img src="{{ image.img_src }}" alt="Picture from the Perseverance Rover">
@@ -11,8 +10,7 @@
         </div>
     {% endfor %}
 
-    <p>
-        <a  href="#top" class="btn btn-outline-info">Back to Top</a>
-    </p>
-
+<p>
+    <a  href="#top" class="btn btn-outline-info">Back to Top</a>
+</p>
 {% endblock %}

@@ -1,49 +1,54 @@
 {% extends 'base.html' %}
 {% block title %} Image Search {% endblock %}
 {% block content %}
+<div class="jumbotron shadow">
+  <h2 class="display-5 text-center">NASA Image Library</h2>
+  <br>
+  <form method="POST">
+    <div class="container">
+      {{ form.hidden_tag() }}
 
-<h2>NASA Image Library</h2>
+      {% for field in form
+        if field.widget.input_type != 'hidden' %}
+      <p>
+        {{ field(class_="form-control form-control-lg py-4",
+            placeholder="SEARCH here   --    something like.. 'Magellanic Cloud'") }}
 
-<form method="POST">
-    <div class="col-md-6">
-    <!-- <input class="form-control" type="text" name="search"
-        placeholder="Search Nasa pictures - for ex.. &quot;Cat's Eye Nebula&quot;"> -->
-  {{ form.hidden_tag() }}
-
-  {% for field in form
-    if field.widget.input_type != 'hidden' %}
-  <p>
-    {{ field(class_="form-control",
-        placeholder="SEARCH here   --    something like.. 'Sombrero'") }}
-
-    {% for error in field.errors %}
-    <span class="form-text text-danger">{{ error }}</span>
-    {% endfor %}
-  </p>
-  {% endfor %}
-  <span><button class="btn btn-success" type="submit">Search</button></span>
+        {% for error in field.errors %}
+        <span class="form-text text-danger">{{ error }}</span>
+        {% endfor %}
+      </p>
+      {% endfor %}
+      <button class="btn btn-info" type="submit">Search</button>
+    </div>
+  </form> 
 </div>
-</form> 
+
+<!-- image placing starts here -->
 
 {% if result %}
-    {% for item in result %}
+  <div class="container">
+    <div class="row align-items-center justify-content-between">
+      {% for item in result %}
         <form action="/show_image" method="POST">
-            <div>
-                <button type="submit">
-                    <img src="{{ item['thumbnail']}}" alt="{{ item['title']}}">
-                </button>
-            </div>
-   
-            <!-- hidden fields with image data -->
-            {% for (key, value) in item.items() %}
-                <input type="hidden" name="{{ key }}" value="{{ value }}" >
-            {% endfor %}
+          <div class="col-sm-6 col-xl-4">
+            <button>
+              <img src="{{ item['thumbnail']}} " style="max-width: 19rem;" alt="{{ item['title']}}">
+            </button>
+          </div>
+          <!-- hidden fields with image data -->
+          {% for (key, value) in item.items() %}
+            <input type="hidden" name="{{ key }}" value="{{ value }}" >
+          {% endfor %}
         </form>
-    {% endfor %}
-   
+      {% endfor %}
+    </div>
+    <br>
     <p>
-        <a  href="#top" class="btn btn-outline-info">Back to Top</a>
+      <a  href="#top" class="btn btn-block btn-info">Back to Top</a>
     </p>
-
+  </div>
 {% endif %}
+
+
 {% endblock %}

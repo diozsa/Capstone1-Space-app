@@ -2,12 +2,12 @@ from crypt import methods
 from imp import new_module
 from unittest import result
 from flask import Flask, render_template, redirect, session, flash, request
-from flask_debugtoolbar import DebugToolbarExtension
+# from flask_debugtoolbar import DebugToolbarExtension
 from models import connect_db, db, User, Image
 from forms import UserForm, SearchForm
 from sqlalchemy.exc import IntegrityError
 from werkzeug.exceptions import Unauthorized
-import requests
+import requests, random, math
 from secrets import API_KEY, FLASK_KEY
 
 app = Flask(__name__)
@@ -18,7 +18,7 @@ app.config['SQLALCHEMY_ECHO'] = True
 app.config['SECRET_KEY'] = FLASK_KEY
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
-toolbar = DebugToolbarExtension(app)
+# toolbar = DebugToolbarExtension(app)
 
 connect_db(app)
 
@@ -55,16 +55,26 @@ def calc_rand_sol():
     and generates a random number within that range
     """
 
-    import random
-
     max_sol_resp =  requests.get(f"{RV_API_BASE}/manifests/perseverance", 
                     params={'api_key': API_KEY})
+
+    if max_sol_resp.status_code != 200:
+        flash("Server error encountered. Please try again", "danger")
+        return redirect('/') 
 
     max_sol_data = max_sol_resp.json()
     max_sol = max_sol_data['photo_manifest']['max_sol']
     random_sol = random.randrange(1,int(max_sol))
     return random_sol
     
+
+def check_img_in_db(nasa_id, user):
+    """Checks if image is already in DB"""
+    images = Image.query.filter(Image.user_id == user.id)
+    image_in_db = images.filter(Image.nasa_id == nasa_id).first()
+    if image_in_db:
+        return True
+
 
 
 ##############  404 ROUTE  ################
@@ -136,7 +146,7 @@ def logout_user():
     """Log out route"""
 
     session.pop('username')
-    flash("You have logged out!", "info")
+    flash("You have logged out!", "success")
     return redirect('/images')
 
 
@@ -147,6 +157,11 @@ def apod():
 
     res = requests.get("https://api.nasa.gov/planetary/apod", 
                         params={'api_key': API_KEY})
+
+    if res.status_code != 200:
+        flash("Server error encountered. Please try again", "danger")
+        return redirect('/') 
+
     data = res.json()
 
     return render_template('apod.html', data=data)
@@ -163,10 +178,15 @@ def show_images():
         search = form.search.data
         res = requests.get(f"{API_BASE_URL}/search", 
                             params={'q': search, 'media_type': 'image'})
+        
+        if res.status_code != 200:
+            flash("Server error encountered. Please try again", "danger")
+            return redirect('/') 
+
         data = res.json()
         results = data['collection']['items']
         if not results:
-            flash("No results found!", "primary")
+            flash("No results found! Try another search item", "primary")
 
         result = collect_API_data(results)
         total_hits = data['collection']['metadata']['total_hits']
@@ -192,7 +212,8 @@ def show_image():
     
     nasa_id = request.form.get('nasa_id')
 
-    # retrieving full size image from API's "asset" endpoint
+    # retrieving full size image link from API's "asset" endpoint
+
     image_url = requests.get(f"{API_BASE_URL}/asset/{nasa_id}")
     image_url = image_url.json() 
 
@@ -219,7 +240,13 @@ def save_image(username):
     if user == None:
         raise Unauthorized()
 
-    image = Image(  nasa_id = request.form.get('nasa_id'),
+    nasa_id = request.form.get('nasa_id')
+    # Checks if image is already in DB
+    if check_img_in_db(nasa_id, user):
+        flash("Image is already in your list", "warning")
+        return redirect('/user/saved_images')
+
+    image = Image(  nasa_id = nasa_id,
                     title = request.form.get('title'),
                     description = request.form.get('description'),
                     photographer = request.form.get('photographer'),
@@ -231,7 +258,7 @@ def save_image(username):
     
     db.session.add(image)
     db.session.commit()
-    flash('Image added to your collection!', 'primary')
+    flash('Image added to your collection!', 'success')
     return redirect('/images')
 
 
@@ -253,7 +280,7 @@ def show_saved_images():
 
 @app.route('/users/<username>/saved_images/<int:id>/delete', methods=['POST'])
 def delete_image(username, id):
-    """Deletes an image"""
+    """Deletes an image from DB, if logged in"""
 
     if 'username' not in session:
         flash("Please login first!", "danger")
@@ -277,6 +304,10 @@ def rover_image():
 
     img_resp = requests.get(f"{RV_API_BASE}/rovers/perseverance/photos", 
                         params={'api_key': API_KEY, 'sol': {random_sol}})
+
+    if img_resp.status_code != 200:
+        flash("Server error encountered. Please try again", "danger")
+        return redirect('/') 
        
     data = img_resp.json()
     images = data['photos']
@@ -284,7 +315,11 @@ def rover_image():
     if total_hits == 0:
         flash("No images could be retrieved, please try again", "info")
         return redirect ('/images')
-    
+
     return render_template('rover.html', images=images)
+
+
+
+
 
 

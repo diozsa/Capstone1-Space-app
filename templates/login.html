@@ -1,11 +1,11 @@
 {% extends 'base.html'  %}
 {% block title %} LogIn {% endblock %}
 {% block content %}
-
+<div class="jumbotron shadow">
 <h1 class="display-4">Log In</h1>
 <p class="lead">Login Below. Don't have an account? <a href="/register">Register here</a></p>
 
-<form method="POST">
+<form method="POST" class="col-md-6 p-4 shadow">
 
   {{ form.hidden_tag() }}
 
@@ -24,4 +24,5 @@
   <button class="btn btn-success" type="submit">LogIn</button>
 
 </form>
+</div>
 {% endblock %}

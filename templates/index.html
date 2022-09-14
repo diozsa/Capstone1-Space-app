@@ -3,8 +3,45 @@
 {% block title %} Welcome! {% endblock %}
 
 {% block content %}
-<h1>Welcome to Nasa's Space Exploration</h1>
-
-<h6>short description of the website here</h6>
+<div class="jumbotron shadow">
+<h1 class="display-4 text-center">Welcome to Nasa's Space Exploration</h1>
+<br>
+<p class="lead text-justify">
+    If you have not seen the full night sky in a while,
+    here you can get a glipse of what's out there, 
+    in close virtual proximity to many celestial bodies and much more.
+    <br>
+    I hope your curiousity will be piqued!
+</p>
+<p class="lead text-justify">
+    The site has 4 main parts:
+    <ul class="lead text-justify">
+        <li>NASA Images - a service provided by NASA that allows 
+            searches on their image database. Once the image is loaded, click on it for more info.
+            <br>
+            For instance, try looking up some fascinating astronomical objects from the 
+            <a target="_blank" href="https://www.nasa.gov/content/goddard/hubble-s-messier-catalog">Messier catalog</a> - 
+            you won't be disspointed.
+        </li>
+        <li>APOD - Astronomy Picture of the DAY - an image/video file updated daily by NASA</li>
+        <li>Perseverance Rover - With currently over 100,000 images available from this rover,
+            Perseverance is the latest rover deployed on Mars.
+            It has 15 cameras on board dedicated to specific imaging tasks. The app randomly selects
+            a sol (Mars day) out of the total number of days the rover has been active
+            and retrives pictures from different cameras. The information comes in bulk - 
+            some pictures are better than others.
+            But these are images straight from the surface of Mars!   
+        </li>
+        <li>
+            Your Image Collection - When using the NASA images search tool 
+            you could save your favorite pictures in the database, if you are logged in. 
+        </li>
+    </ul>
+</p>
+<br>
+<p class="lead text-justify">
+    Enjoy your space trip!
+</p>
+</div>
 
 {% endblock %}
