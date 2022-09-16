@@ -1,30 +1,34 @@
 {% extends 'base.html' %}
 {% block title %} APOD {% endblock %}
 {% block content %}
+  <div class="jumbotron shadow">
+    <h2 class="display-5 text-center mb-4">Astronomy Picture Of the Day</h2>
 
-<h2>Astronomy Picture Of the Day</h2>
+    {% if data['media_type'] == 'image' %}
+      <div class="row justify-content-center py-4">   
+        <img src="{{ data['url'] }}" alt="{{ data['title'] }}">
+      </div> 
+    {% endif %}
 
-{% if data['media_type'] == 'image' %}
-    <img src="{{ data['url'] }}" alt="{{ data['title'] }}">
-{% endif %}
+    {% if data['media_type'] == 'video' %}
+      <div class="row justify-content-center py-4">
+        <iframe width="560" height="315" src="{{ data['url'] }}" frameborder="0" allowfullscreen></iframe>
+      </div>
+    {% endif %}
 
-{% if data['media_type'] == 'video' %}
+    <div class="row py-4 justify-content-center text-light">
+      <p style="font-size: 1.5rem;"><b>{{ data.title }}</b></p>
+    </div>
+    <div class="row text-light mx-4">
+      {{ data.explanation }}
+    </div>
+    
+    {% if data['copyright'] %}
+      <div class="row ml-4 py-4">
+        Copyright: {{ data['copyright'] }}  
+      </div>
+    {% endif %}      
 
-<iframe width="560" height="315" src="{{ data['url'] }}" frameborder="0" allowfullscreen></iframe>
-{% endif %}
-
-    <span>
-        <p>
-        <b>{{ data.title }}</b>
-        <br>
-        {{ data.explanation }}
-        <br>
-        {% if data['copyright'] %}
-            Copyright: {{ data['copyright'] }}  
-        {% endif %}      
-        </p>
-    </span>
-
-<a href="/" class="btn btn-outline-info">Home Page</a>
-
+    <a href="/" class="btn btn-outline-info ml-4">Home Page</a>
+  </div>
 {% endblock %}

@@ -2,15 +2,24 @@
 {% block title %} Perseverance Rover {% endblock %}
 {% block content %}
 
-    {% for image in images %}
-        <div>
+<h3 class="display-5 text-center py-4">Images taken on sol {{ random_sol }}</h3>  
+<div class="row align-items-center justify-content-between pt-4">    
+{% for image in images %}
+ 
+        
+    <div class="col-sm-6 col-xl-3">
             <a target="_blank" href="{{ image.img_src}}" title="Click for full size image">
-                <img src="{{ image.img_src }}" alt="Picture from the Perseverance Rover">
+                <div class="card shadow ">
+                    <img class="card-img-top" src="{{ image.img_src }}" alt="Picture from the Perseverance Rover">
+
+                  </div>                
             </a>  
         </div>
+ 
     {% endfor %}
-
+</div>
+ 
 <p>
-    <a  href="#top" class="btn btn-outline-info">Back to Top</a>
+    <a  href="#top" class="btn btn-block btn-outline-info ml-4 mt-5">Back to Top</a>
 </p>
 {% endblock %}

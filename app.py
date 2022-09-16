@@ -290,7 +290,7 @@ def delete_image(username, id):
     image = Image.query.get_or_404(id)
     db.session.delete(image)
     db.session.commit()
-    flash("Image deleted!", "info")
+    flash("Image deleted!", "success")
     return redirect('/user/saved_images')
 
 
@@ -316,7 +316,7 @@ def rover_image():
         flash("No images could be retrieved, please try again", "info")
         return redirect ('/images')
 
-    return render_template('rover.html', images=images)
+    return render_template('rover.html', images=images, total_hits=total_hits, random_sol=random_sol)
 
 
 

@@ -2,47 +2,41 @@
 {% block title %} Saved Images {% endblock %}
 {% block content %}
 
-
-<h3 class="mt-4">Welcome {{user.username}}!</h3>
-<h4 class="mt-4">This is your collection</h4>
-{% if user.images == [] %}
+<h3 class="my-4 text-center">This is your image collection</h3>
+  {% if user.images == [] %}
     <h5 class="mt-4">No pictures added yet.</h5>
 
-{% else %}
-{% for image in user.images %}
+  {% else %}
+    {% for image in user.images %}
+      <div class="jumbotron shadow">
+        <div class="row justify-content-center py-4">
+          <a target="_blank" href="{{ image.full_size}}" title="Click for full size image">
+            <img src="{{ image.thumbnail }}" class="img-fluid" alt="{{ image.title }}">
+          </a>  
+        </div>
+        <div class="row py-4 justify-content-center text-light">
+          <p style="font-size: 1.5rem;"><b>{{ image.title }}</b></p>
+        </div>
+        <div class="row text-light mx-5 ">
+          {{ image.description }}
+        </div>
+        
+        {% if image.photographer != "None" %}
+          <div class="row ml-5 py-4">    
+            Photographer:  {{ image['photographer'] }}  
+          </div>
+        {% endif %}
 
-<a target="_blank" href="{{ image.full_size}}" title="Click for full size image">
-    <img src="{{ image.thumbnail }}" alt="{{ image.title }}">
-</a>  
-    <!-- <div class="col-sm-10 col-12">
-  
-    </div> -->
+        {% if image.creator != "None" %}
+          <div class="row ml-5 py-4">
+            Creator: {{ image['creator'] }} 
+          </div>
+        {% endif %}  
 
-    <!-- <div class="col-lg-6 col-6"> -->
-    <div>
-        <form>
-          <button class="btn btn-danger btn-sm"
-                  formaction="/users/{{ user.username }}/saved_images/{{ image.id }}/delete"
-                  formmethod="POST">Delete
-          </button>
+        <form action="/users/{{ user.username }}/saved_images/{{ image.id }}/delete", method="POST">
+          <button class="btn btn-danger btn-sm ml-5 my-4"><i class="fa-solid fa-trash-can fa-2x"></i></button>
         </form>
-        <ul>
-            <li>
-                <b>{{ image.title }}</b>
-                <p>{{image.description}}</p>
-
-                {% if image.photographer != "None" %}
-                    <b>Photographer:</b> {{ image.photographer }}  
-                {% endif %}
-                
-                {% if image.creator != "None" %}
-                    <b>Creator:</b> {{ image.creator }}  
-                {% endif %}       
-
-            </li>
-        </ul>
-    </div>
-    <br>
-{% endfor %}
-{% endif %}
+      </div>
+    {% endfor %}
+  {% endif %}
 {% endblock %}

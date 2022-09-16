@@ -1,11 +1,11 @@
 {% extends 'base.html'  %}
 {% block title %} SignUp {% endblock %}
 {% block content %}
-
+<div class="jumbotron shadow">
 <h1 class="display-4">Sign Up</h1>
 <p class="lead">Register below so you can create your own collection of images!</p>
 
-<form method="POST">
+<form method="POST"class="col-md-6 p-4 shadow">
 
   {{ form.hidden_tag() }}
 
@@ -24,4 +24,5 @@
   <button class="btn btn-success" type="submit">Register</button>
 
 </form>
+</div>
 {% endblock %}
