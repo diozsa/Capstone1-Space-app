@@ -36,20 +36,22 @@ The pagination was intentionally not implemented on the Rover API because the ra
 There is a lot of repetition in some responses. The image tiles are smaller to fit more on screen
 so the easiest way to deal with this is to use the page scroll instead of "Next Page" link.
 ## Install
+Go to the terminal.
 - Create a virtual environment with
 > python3 -m venv venv
-- After cloning, install dependencies from requirements.txt like this:
+- Activate the venv
+> source venv/bin/activate
+- After cloning, install dependencies from requirements.txt
 > pip install -r requirements.txt
 *The app was written in Python-3.8.10 - in case you need a specific Python version.*
-- ***Make file "secrets.py" in the root folder and add the 2 global variables in this file: API_KEY and FLASK_KEY***
+- ***While in (venv), set up 2 environmental variables from the terminal: API_KEY and FLASK_KEY***
 > **Example:**
 
-    API_KEY = "245gpoi24g029gndfzgg24j"
-    FLASK_KEY = "you_can_choose_whatever_you_want_here"
+    export FLASK_KEY="_some_randomized_string_" ()
+    export API_KEY="245gpoi24g029gndfzgg24j" OR export API_KEY="DEMO_KEY"
 
 Both variables are needed at runtime. The API_KEY is also required by 2 of the APIs.<br>
-You can quickly and easily get a new API key [here](https://api.nasa.gov) or you can use their DEMO_KEY like this:<br>
-> API_KEY = "DEMO_KEY"<br>
+You can quickly and easily get a new API key [here](https://api.nasa.gov) or you can use their DEMO_KEY.
 >#### The rate limits for the DEMO_KEY are:
 >
 > - Hourly Limit: 30 requests per IP address per hour
