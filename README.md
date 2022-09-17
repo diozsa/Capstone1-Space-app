@@ -28,7 +28,7 @@ There are friendly messages displayed as action confirmations, also the app chec
 might be coming from the API servers or from interractions with the database.<br>
 The logged in username is diplayed in the navbar. "Guest" is displayed if user is not logged in.
 ## Technology
-The site is built in Python3/Flask/Jinja.
+The site is built in Python3/Flask/Jinja2.
 ## Future addons
 Future pagination should be added to the Nasa Image Library page. Currently the API retrieves 100 results per page,
 and it defaults to "page=1" as one of the API parameters.<br>
