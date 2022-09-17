@@ -16,8 +16,8 @@ import requests, random, math
 
 app = Flask(__name__)
 
-FLASK_KEY = dict(os.environ)[“FLASK_KEY”]
-API_KEY = dict(os.environ)[“API_KEY”]
+FLASK_KEY = dict(os.environ)["FLASK_KEY"]
+API_KEY = dict(os.environ)["API_KEY"]
 
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql:///space"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
