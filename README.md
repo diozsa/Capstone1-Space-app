@@ -36,7 +36,7 @@ The pagination was intentionally not implemented on the Rover API because the ra
 There is a lot of repetition in some responses. The image tiles are smaller to fit more on screen
 so the easiest way to deal with this is to use the page scroll instead of "Next Page" link.
 ## Install
-Go to the terminal.
+Go to your bash terminal.
 - Create a virtual environment with
 > python3 -m venv venv
 - Activate the venv

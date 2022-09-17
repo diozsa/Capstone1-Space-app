@@ -13,19 +13,9 @@ import requests, random, math
 # NEEDED FOR PRODUCTION DEBUGGIN ONLY
 # from flask_debugtoolbar import DebugToolbarExtension
 
-#####################################
-# necessary for running on local machine 
-# but it should be commented out in deployment
-
-# from secrets import API_KEY, FLASK_KEY
-############################################
-
 app = Flask(__name__)
+# toolbar = DebugToolbarExtension(app)
 
-###########################################
-# comment out both variables for local machine
-# but needed for deployment
- 
 FLASK_KEY = dict(os.environ)["FLASK_KEY"]
 API_KEY = dict(os.environ)["API_KEY"]
 ############################################
@@ -33,16 +23,9 @@ API_KEY = dict(os.environ)["API_KEY"]
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', "postgresql:///space")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
-# app.config['SECRET_KEY'] = FLASK_KEY
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
-# app.config['SECRET_KEY'] = os.environ.get('FLASK_KEY', "")
 app.config['SECRET_KEY'] = FLASK_KEY
 app.config['API_KEY'] =  API_KEY
-print(os.environ['FLASK_KEY'])
-print(os.environ['API_KEY'])
-# app.config['API_KEY'] = os.environ.get('API_KEY', "")
-
-# toolbar = DebugToolbarExtension(app)
 
 connect_db(app)
 
