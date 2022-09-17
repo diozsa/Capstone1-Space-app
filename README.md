@@ -37,17 +37,17 @@ There is a lot of repetition in some responses. The image tiles are smaller to f
 so the easiest way to deal with this is to use the page scroll instead of "Next Page" link.
 ## Install
 Go to your bash terminal.
-- Create a virtual environment with
+- Create a virtual environment
 > python3 -m venv venv
 - Activate the venv
 > source venv/bin/activate
 - After cloning, install dependencies from requirements.txt
 > pip install -r requirements.txt
-*The app was written in Python-3.8.10 - in case you need a specific Python version.*
+******The app was written in Python-3.8.10 - in case you need a specific Python version.******
 - ***While in (venv), set up 2 environmental variables from the terminal: API_KEY and FLASK_KEY***
 > **Example:**
 
-    export FLASK_KEY="_some_randomized_string_" ()
+    export FLASK_KEY="_some_randomized_string_"
     export API_KEY="245gpoi24g029gndfzgg24j" OR export API_KEY="DEMO_KEY"
 
 Both variables are needed at runtime. The API_KEY is also required by 2 of the APIs.<br>
