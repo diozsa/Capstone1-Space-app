@@ -43,8 +43,9 @@ so the easiest way to deal with this is to use the page scroll instead of "Next 
 *The app was written in Python-3.8.10 - in case you need a specific Python version.*
 - ***Make file "secrets.py" in the root folder and add the 2 global variables in this file: API_KEY and FLASK_KEY***
 > **Example:**
->> API_KEY = "245gpoi24g029gndfzgg24j"
->> FLASK_KEY = "you_can_choose_whatever_you_want_here"
+
+    API_KEY = "245gpoi24g029gndfzgg24j"
+    FLASK_KEY = "you_can_choose_whatever_you_want_here"
 
 Both variables are needed at runtime. The API_KEY is also required by 2 of the APIs.<br>
 You can quickly and easily get a new API key [here](https://api.nasa.gov) or you can use their DEMO_KEY like this:<br>
