@@ -3,21 +3,32 @@ from crypt import methods
 from imp import new_module
 from unittest import result
 from flask import Flask, render_template, redirect, session, flash, request
-# from flask_debugtoolbar import DebugToolbarExtension
 from models import connect_db, db, User, Image
 from forms import UserForm, SearchForm
 from sqlalchemy.exc import IntegrityError
 from werkzeug.exceptions import Unauthorized
 import requests, random, math
-# from secrets import API_KEY, FLASK_KEY
 
+#####################################
+# needed for production debugging only
 
+# from flask_debugtoolbar import DebugToolbarExtension
+#####################################
+# necessary for running on local machine 
+# but it should be commented out in deployment
 
+from secrets import API_KEY, FLASK_KEY
+############################################
 
 app = Flask(__name__)
 
-FLASK_KEY = dict(os.environ)["FLASK_KEY"]
-API_KEY = dict(os.environ)["API_KEY"]
+###########################################
+# comment out both variables for local machine
+# but needed for deployment
+ 
+# FLASK_KEY = dict(os.environ)["FLASK_KEY"]
+# API_KEY = dict(os.environ)["API_KEY"]
+############################################
 
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql:///space"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
