@@ -1,3 +1,4 @@
+import os
 from crypt import methods
 from imp import new_module
 from unittest import result
@@ -8,9 +9,15 @@ from forms import UserForm, SearchForm
 from sqlalchemy.exc import IntegrityError
 from werkzeug.exceptions import Unauthorized
 import requests, random, math
-from secrets import API_KEY, FLASK_KEY
+# from secrets import API_KEY, FLASK_KEY
+
+
+
 
 app = Flask(__name__)
+
+FLASK_KEY = dict(os.environ)[“FLASK_KEY”]
+API_KEY = dict(os.environ)[“API_KEY”]
 
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql:///space"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
