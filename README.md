@@ -43,7 +43,7 @@ Go to your bash terminal.
 > source venv/bin/activate
 - After cloning, install dependencies from requirements.txt
 > pip install -r requirements.txt
-******The app was written in Python-3.8.10 - in case you need a specific Python version.******
+###### The app was written in Python-3.8.10 - in case you need a specific Python version. ######
 - ***While in (venv), set up 2 environmental variables from the terminal: API_KEY and FLASK_KEY***
 > **Example:**
 
