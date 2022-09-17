@@ -41,7 +41,7 @@ so the easiest way to deal with this is to use the page scroll instead of "Next 
 - After cloning, install dependencies from requirements.txt like this:
 > pip install -r requirements.txt
 *The app was written in Python-3.8.10 - in case you need a specific Python version.*
-- ***Important*** - ***Make file "secrets.py" in the root folder and add the 2 global variables in this file: API_KEY and FLASK_KEY***
+- ***Make file "secrets.py" in the root folder and add the 2 global variables in this file: API_KEY and FLASK_KEY***
 > **Example:**
 >> API_KEY = "245gpoi24g029gndfzgg24j"
 >> FLASK_KEY = "you_can_choose_whatever_you_want_here"
