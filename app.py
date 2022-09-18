@@ -1,6 +1,7 @@
 import os
 from crypt import methods
 from imp import new_module
+from typing import MutableSet
 from unittest import result
 from flask import Flask, render_template, redirect, session, flash, request
 from models import connect_db, db, User, Image
@@ -15,12 +16,20 @@ import requests, random, math
 
 app = Flask(__name__)
 # toolbar = DebugToolbarExtension(app)
+#########################################
+# MUST SET UP THE 2 ENVIRON VARS in Terminal - SEE secrets.py
 
 FLASK_KEY = dict(os.environ)["FLASK_KEY"]
 API_KEY = dict(os.environ)["API_KEY"]
 ############################################
 
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', "postgresql:///space") or os.environ.get("DATABASE_URL").replace("://", "ql://", 1)
+
+if os.environ.get("DATABASE_URL") == None:
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', "postgresql:///space")
+else:
+    os.environ.get("DATABASE_URL", "postgresql:///space").replace("://", "ql://", 1)
+
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
