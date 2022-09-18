@@ -27,7 +27,7 @@ API_KEY = dict(os.environ)["API_KEY"]
 if os.environ.get("DATABASE_URL") == None:
     app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', "postgresql:///space")
 else:
-    os.environ.get("DATABASE_URL", "postgresql:///space").replace("://", "ql://", 1)
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL", "postgresql:///space").replace("://", "ql://", 1)
 
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
