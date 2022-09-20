@@ -9,7 +9,7 @@ from forms import UserForm, SearchForm
 from sqlalchemy.exc import IntegrityError
 from werkzeug.exceptions import Unauthorized
 import requests, random, math
-
+# from secrets import FLASK_KEY, API_KEY
 #####################################
 # NEEDED FOR PRODUCTION DEBUGGIN ONLY
 # from flask_debugtoolbar import DebugToolbarExtension
@@ -18,6 +18,7 @@ app = Flask(__name__)
 # toolbar = DebugToolbarExtension(app)
 #########################################
 # MUST SET UP THE 2 ENVIRON VARS in Terminal - SEE secrets.py
+# OR IMPORT THEM FROM secrets.py
 
 FLASK_KEY = dict(os.environ)["FLASK_KEY"]
 API_KEY = dict(os.environ)["API_KEY"]
@@ -117,6 +118,7 @@ def register_user():
     form = UserForm()
     if form.validate_on_submit():
         username = form.username.data
+        username = username.lower()
         password = form.password.data
         new_user = User.register(username, password)
 
@@ -142,6 +144,7 @@ def login_user():
     form = UserForm()
     if form.validate_on_submit():
         username = form.username.data
+        username = username.lower()
         password = form.password.data
         user = User.authenticate(username, password)
 

@@ -4,9 +4,9 @@
 
 <h3 class="display-5 text-center py-4">Images taken on sol {{ random_sol }}</h3>  
 <div class="row align-items-center justify-content-between pt-4">    
-{% for image in images %}
- 
-        
+    
+    {% for image in images %}
+     
     <div class="col-sm-6 col-xl-3">
             <a target="_blank" href="{{ image.img_src}}" title="Click for full size image">
                 <div class="card shadow my-2 border border-rounded border-secondary ">
@@ -17,6 +17,7 @@
         </div>
  
     {% endfor %}
+
 </div>
  
 <p>
