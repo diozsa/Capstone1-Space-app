@@ -6,7 +6,7 @@
 
     {% if data['media_type'] == 'image' %}
       <div class="row justify-content-center py-4">   
-        <img src="{{ data['url'] }}" alt="{{ data['title'] }}">
+        <img class="img-fluid" src="{{ data['url'] }}" alt="{{ data['title'] }}">
       </div> 
     {% endif %}
 
