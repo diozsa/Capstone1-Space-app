@@ -55,8 +55,8 @@ def collect_API_data(results):
         photographer = item['data'][0].get('photographer')
         creator = item['data'][0].get('secondary_creator')
         thumbnail = item['links'][0].get('href')
-
-
+        # removing any extra html in the description, by first tag
+        description = description.split("<", 1)[0]
         result.append({ 'nasa_id': nasa_id,
                         'title': title,
                         'description': description,
@@ -190,6 +190,9 @@ def apod():
 @app.route('/images', methods=['GET', 'POST'])
 def show_images():
     """Shows images requested from the API"""
+
+# pagination - send page through form and if page is null page=1
+#  default api page=1
 
     form = SearchForm()
     

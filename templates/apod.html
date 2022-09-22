@@ -20,7 +20,7 @@
       <p style="font-size: 1.5rem;"><b>{{ data.title }}</b></p>
     </div>
     <div class="row text-light mx-4">
-      {{ data.explanation }}
+      {{ data.explanation.split("<", 1)[0] }}
     </div>
 
     {% if data['copyright'] %}
