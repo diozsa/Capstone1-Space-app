@@ -34,10 +34,10 @@ The site is built in Python3/Flask/Jinja2.
 - A page for space fans that don't know what to search for - a showroom of the Messier Catalogue.
 - Future pagination for the Nasa Image Library page. Currently the API retrieves 100 results per page,
 and it defaults to "page=1" as one of the API parameters.<br>
-The pagination was intentionally not implemented on the Rover API because the raw data comes in bulk, without description.
+###### Note - The pagination was intentionally not implemented on the Rover API because the raw data comes in bulk, without description.
 There is a lot of repetition in some responses. The image tiles are smaller to fit more on screen
 so the easiest way to deal with this is to use the page scroll instead of "Next Page" link.
-###### Note - this approach might create a poor user experience for 3G/4G internet speeds, so likely pagination will be implemented here as well. ######
+This approach might create a poor user experience for 3G/4G internet speeds, so likely pagination will be implemented here as well. ######
 ## Install
 Go to your bash terminal.
 - Create a virtual environment
