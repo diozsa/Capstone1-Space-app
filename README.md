@@ -27,17 +27,17 @@ The database part of the site can only be used by logged in users.<br>
 There are friendly messages displayed as action confirmations, also the app checks for response code status and gratiously catches any errors that 
 might be coming from the API servers or from interractions with the database.<br>
 The logged in username is diplayed in the navbar. "Guest" is displayed if user is not logged in.
+All pages are responsive, the app will work fine on small screens, provided the connectivity speed is above 4G.
 ## Technology
 The site is built in Python3/Flask/Jinja2.
 ## Future addons
-- styling for mobile devices.
-- a page for space fans that don't know what to search for - a showroom of the Messier Catalogue.
+- A page for space fans that don't know what to search for - a showroom of the Messier Catalogue.
 - Future pagination for the Nasa Image Library page. Currently the API retrieves 100 results per page,
 and it defaults to "page=1" as one of the API parameters.<br>
 The pagination was intentionally not implemented on the Rover API because the raw data comes in bulk, without description.
 There is a lot of repetition in some responses. The image tiles are smaller to fit more on screen
 so the easiest way to deal with this is to use the page scroll instead of "Next Page" link.
-###### A caveat - this approach might create a poor user experience for 3G/4G internet speeds, so likely pagination will be implemented here as well. ######
+###### Note - this approach might create a poor user experience for 3G/4G internet speeds, so likely pagination will be implemented here as well. ######
 ## Install
 Go to your bash terminal.
 - Create a virtual environment
