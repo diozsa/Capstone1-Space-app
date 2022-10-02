@@ -3,27 +3,31 @@
 {% block title %} Welcome! {% endblock %}
 
 {% block content %}
-<div class="jumbotron shadow">
-<h1 class="display-4 text-center">Welcome to Nasa's Space Exploration</h1>
-<div class="text-justify mt-4 mx-5">
+
+<!-- <div class="jumbotron shadow"> -->
+<h1 class="display-4 text-info text-center">Welcome to Nasa's Space Exploration</h1>
+<div class="text-justify text-light mt-4 mx-5">
+        <video  autoplay loop muted style="position:fixed; z-index:-100; right: 0; bottom: 0; min-width: 100%; min-height: 100%; width: auto; height: auto; opacity:0.9">
+            <!-- class="w-100" for a responsive background -->
+            <source src="/static/background4.mp4" type="video/mp4" alt="Curtosy of Borys Zaitsev - Pexels - video of space" />
+        </video>
+
 <p >
     If you have not seen the full night sky in a while,
     here you can get a glipse of what's out there, 
-    in close virtual proximity to many celestial bodies and much more.
-    <br>
-    I hope your curiosity will be piqued!
+    in close virtual proximity to many celestial bodies and much more. I hope your curiosity will be piqued!
+   
 </p>
 <p >
     The site has 4 main parts:
     <ul >
-        <li>NASA Images - a service provided by NASA that allows 
-            searches on their image database. Once the image is loaded, click on it for more info.
+        <li>NASA Images - Search for images in NASA database. Once the image is loaded, click on it for more info.
             <br>
             For instance, try looking up some fascinating astronomical objects from the 
             <a target="_blank" href="https://www.nasa.gov/content/goddard/hubble-s-messier-catalog">Messier catalog</a> - 
-            you won't be disappointed.
+            you won't be disappointed.<P></P>
         </li>
-        <li>APOD - Astronomy Picture of the DAY - an image/video file updated daily by NASA.</li>
+        <li>APOD - Astronomy Picture of the DAY - an image/video file updated daily by NASA.</li><P></P>
         <li>Perseverance Rover - With currently over 300,000 images available from this rover,
              <a target="_blank" href="https://mars.nasa.gov/mars2020/">Perseverance</a>
             is the latest rover deployed on Mars by NASA.
@@ -32,7 +36,7 @@
             and retrieves pictures from different cameras. This is raw data with no description - 
             some pictures are more interesting than others.
             But these are images straight from the surface of Mars!   
-        </li>
+        </li><P></P>
         <li>
             Your Image Collection - When using the NASA images search tool 
             you could save your favorite pictures in the database, if you are logged in. 
@@ -44,5 +48,5 @@
     Enjoy your space trip!
 </p>
 </div>
-
+<!-- </div> -->
 {% endblock %}
