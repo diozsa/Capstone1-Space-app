@@ -9,7 +9,7 @@ from forms import UserForm, SearchForm
 from sqlalchemy.exc import IntegrityError
 from werkzeug.exceptions import Unauthorized
 import requests, random, math
-# from secrets import FLASK_KEY, API_KEY
+from secrets import FLASK_KEY, API_KEY
 #####################################
 # NEEDED FOR PRODUCTION DEBUGGIN ONLY
 # from flask_debugtoolbar import DebugToolbarExtension
@@ -20,8 +20,8 @@ app = Flask(__name__)
 # MUST SET UP THE 2 ENVIRON VARS in Terminal - SEE secrets.py
 # OR IMPORT THEM FROM secrets.py
 
-FLASK_KEY = dict(os.environ)["FLASK_KEY"]
-API_KEY = dict(os.environ)["API_KEY"]
+# FLASK_KEY = dict(os.environ)["FLASK_KEY"]
+# API_KEY = dict(os.environ)["API_KEY"]
 ############################################
 
 
@@ -53,11 +53,12 @@ def collect_API_data(results):
         nasa_id = item['data'][0].get('nasa_id')
         title = item['data'][0].get('title')
         description = item['data'][0].get('description')
+# removing any extra html in the description, by first tag
+        if description is not None:
+            description = description.split("<", 1)[0]
         photographer = item['data'][0].get('photographer')
         creator = item['data'][0].get('secondary_creator')
         thumbnail = item['links'][0].get('href')
-        # removing any extra html in the description, by first tag
-        description = description.split("<", 1)[0]
         result.append({'nasa_id': nasa_id,
                        'title': title,
                        'description': description,
@@ -102,13 +103,23 @@ def page_not_found(e):
     return render_template('404.html')
 
 
+############### SPLASH ROUTE ###############
+
+@app.route('/about')
+def about_page():
+    """ A static page to show site navigation"""
+    return render_template('about_page.html')
+
+
 ############### HOME ROUTE #################
-#
+
 @app.route('/')
 def home():
     """Home page"""
     return render_template('index.html')
 
+
+################ MAIN ROUTES ###############
 
 @app.route('/register', methods=['GET', 'POST'])
 def register_user():

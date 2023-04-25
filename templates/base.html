@@ -13,8 +13,8 @@
   <link rel="stylesheet" href="/static/bootstrap.min.css"/>
   <!-- <link rel="stylesheet" href="https://bootswatch.com/4/darkly/bootstrap.min.css"> -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"/>
-
-
+  <link rel="stylesheet" href="/static/caption.css">
+  <link rel="stylesheet" href="/static/home.css">
 </head>
 
 <body>
@@ -23,7 +23,7 @@
   <!-- <nav class="navbar navbar-light bg-primary justify-content-between"> -->
   <nav class="navbar navbar-expand-xl navbar-dark bg-primary justify-content-end">
     <div class="container-fluid">
-      <a href="/apod" class="navbar-brand text-light pl-5">Space Exploration</a>
+      <a href="/" class="navbar-brand text-light pl-5">Space Exploration</a>
 
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse"
         aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,7 +35,7 @@
         <ul class="nav navbar-nav ml-3 m-1">
 
           <li class="nav-item">
-            <a class="nav-link pr-4 text-light" href="/">About</a>
+            <a class="nav-link pr-4 text-light" href="/about">About</a>
           </li>
           <li class="nav-item">
             <a class="nav-link pr-4 text-light" href="/images">NASA Images</a>
@@ -90,6 +90,7 @@
 
     {% endblock %}
   </div>
+  <script src="/static/skyObj.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
     crossorigin="anonymous"></script>

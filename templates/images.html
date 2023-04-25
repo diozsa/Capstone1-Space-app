@@ -4,7 +4,7 @@
 <div class="jumbotron shadow">
   <h2 class="display-5 text-center">NASA Image Library</h2>
   <br>
-  <form method="POST">
+  <form method="POST" id="search-form">
     <div class="container">
       
       {{ form.hidden_tag() }}
@@ -22,6 +22,9 @@
       </p>
       {% endfor %}
       <button class="btn btn-info" type="submit">Search</button>
+      <button class="mx-2 btn btn-primary" type="button"
+        onclick="fillRandomObject()">I Feel Lucky</button>
+
     </div>
   </form> 
 </div>

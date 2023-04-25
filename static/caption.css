@@ -1,0 +1,70 @@
+.carousel-caption h3 {
+  font-size: 32px;
+  /* default font size */
+}
+
+.carousel-caption h5 {
+    font-size: 20px;
+  /* default font size */
+
+}
+.display-4 {
+  font-size: 56px;
+  font-weight: 900;
+}
+
+@media (max-width: 1200px) {
+
+  /* for screens smaller than 1200px (lg breakpoint) */
+  .carousel-caption h3 {
+    font-size: 1.8rem;
+  }
+  .carousel-caption h5 {
+    font-size: 1rem;
+  }
+  .display-4 {
+    font-size: 50px;
+    font-weight: 400;
+  }
+}
+
+@media (max-width: 992px) {
+
+  /* for screens smaller than 992px (md breakpoint) */
+  .carousel-caption h3 {
+    font-size: 1.6rem;
+  }
+  .carousel-caption h5 {
+    font-size: 0.8rem;
+  }
+  .display-4 {
+    font-size: 40px;
+    font-weight: 400;
+  }
+}
+
+@media (max-width: 768px) {
+
+  /* for screens smaller than 768px (sm breakpoint) */
+  .carousel-caption h3 {
+    font-size: 1.3rem;
+  }
+  .carousel-caption h5 {
+    font-size: 0.55rem;
+  }
+  .display-4 {
+    font-size: 30px;
+    font-weight: 400;
+  }
+}
+
+@media (max-width: 578px) {
+
+  /* for screens smaller than 576px (xs breakpoint) */
+  .carousel-caption h3 {
+    font-size: 1.2rem;
+  }
+  .carousel-caption h5 {
+    font-size: 0.45rem;
+  }
+}
