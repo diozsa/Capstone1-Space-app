@@ -1,4 +1,4 @@
-// The Messier catalog - an array of objects with name and ID properties
+// A list of celestial objects - an array of objects with name and ID properties
 const skyObject = [
   { name: 'The Crab Nebula', id: 'm1' },
   { name: 'Globular Cluster', id: 'm2' },
@@ -51,6 +51,8 @@ const skyObject = [
   { name: 'Neptune', id: 'neptune' },
   { name: 'Pluto', id: 'pluto' }
 ];
+
+// this function is called by the button event handler in "images.html"
 
 function fillRandomObject() {
   // Select a random object from the catalog
