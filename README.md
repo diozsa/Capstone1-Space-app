@@ -11,16 +11,14 @@ The app is mainly an educational visual tool, easy to navigate, so that anybody 
 The site has 4 main parts, accessible through the navbar and uses 3 different APIs:
 
 - NASA Images - a service provided by NASA that allows searches on their image database.
-This uses NASA Image Library API - [docs here](https://images.nasa.gov/docs/images.nasa.gov_api_docs.pdf)
+This uses NASA Image Library API - [docs here](https://images.nasa.gov/docs/images.nasa.gov_api_docs.pdf). For the users who are unsure what to search for, the "I Feel Lucky" button will retrive a random picture from a list of about 50 celestial objects.
 - APOD - Astronomy Picture of the DAY - This micro-API delivers an image/video file updated daily by NASA - [docs here](https://github.com/nasa/apod-api)
-- Perseverance Rover - Displays images from Mars. Using this API,  the app randomly selects
-a sol (Mars day) out of the total number of days the rover has been active
-and retrieves pictures from 15 different cameras - [docs here](https://github.com/chrisccerami/mars-photo-api)
+- Perseverance Rover - Displays images from Mars. Using this API,  the app randomly selects a sol (Mars day) out of the total number of days the rover has been active and retrieves pictures from 15 different cameras - [docs here](https://github.com/chrisccerami/mars-photo-api)
 - Your Image Collection - When using the NASA Images search tool
 user can add/delete their favorite pictures to/from the database, if they are logged in.
-This link is not shown / route is blocked to "Guest" users.
+This link is not shown and the route is blocked to "Guest" users.
 ## Used flow
-User is taken to the home page that has a brief description of the app. The same page is linked to "About" in the Nav bar.
+User is taken to the home page that has a welcoming message. A guide for the site navigation is linked to "About" in the Nav bar.
 The 3 services are listed in the Nav bar, and no login is necessary for browsing the site. When user is querying the Nasa Image Library API,
 they can select a specific picture which will be routed to a full screen image with title, description, authors, etc. This page has a "Add Image" button.
 The database part of the site can only be used by logged in users.<br>
@@ -29,9 +27,8 @@ might be coming from the API servers or from interractions with the database.<br
 The logged in username is diplayed in the navbar. "Guest" is displayed if user is not logged in.
 All pages are responsive, the app will work fine on small screens, provided the connectivity speed is above 4G.
 ## Technology
-The site is built in Python3/Flask/Jinja2.
+The server side is built in Python3/Flask, frontend is server rendered using templating with Jinja2, HTML and JavaScript. Bootstrap and CSS is used for responsive styling, DB with PostgreSQL.
 ## Future addons
-- A page for space fans that don't know what to search for - a showroom of the Messier Catalogue.
 - Future pagination for the Nasa Image Library page. Currently the API retrieves 100 results per page,
 and it defaults to "page=1" as one of the API parameters.<br>
 ###### Note - The pagination was intentionally not implemented on the Rover API because the raw data comes in bulk, without description. There is a lot of repetition in some responses. The image tiles are smaller to fit more on screen so the easiest way to deal with this is to use the page scroll instead of "Next Page" link. This approach might create a poor user experience for 3G/4G internet speeds, so likely pagination will be implemented here as well. ######

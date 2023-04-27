@@ -9,7 +9,7 @@ from forms import UserForm, SearchForm
 from sqlalchemy.exc import IntegrityError
 from werkzeug.exceptions import Unauthorized
 import requests, random, math
-# from secrets import FLASK_KEY, API_KEY
+from secrets import FLASK_KEY, API_KEY
 #####################################
 # NEEDED FOR PRODUCTION DEBUGGIN ONLY
 # from flask_debugtoolbar import DebugToolbarExtension
@@ -20,8 +20,8 @@ app = Flask(__name__)
 # MUST SET UP THE 2 ENVIRON VARS in Terminal - SEE secrets.py
 # OR IMPORT THEM FROM secrets.py
 
-FLASK_KEY = dict(os.environ)["FLASK_KEY"]
-API_KEY = dict(os.environ)["API_KEY"]
+# FLASK_KEY = dict(os.environ)["FLASK_KEY"]
+# API_KEY = dict(os.environ)["API_KEY"]
 ############################################
 
 
@@ -108,7 +108,7 @@ def page_not_found(e):
 @app.route('/about')
 def about_page():
     """ A static page to show site navigation"""
-    return render_template('about_page.html')
+    return render_template('about.html')
 
 
 ############### HOME ROUTE #################
