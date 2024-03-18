@@ -24,7 +24,7 @@ FLASK_KEY = dict(os.environ)["FLASK_KEY"]
 API_KEY = dict(os.environ)["API_KEY"]
 ############################################
 
-
+# in case the db url is setup with 'postgres' instead of 'postgresql'
 if os.environ.get("DATABASE_URL") == None:
     app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
         'DATABASE_URL', "postgresql:///space")
